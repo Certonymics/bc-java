@@ -1,0 +1,4 @@
+jdk:
+  - openjdk21
+install:
+  - ./gradlew :prov:publishToMavenLocal -x test -x compileJava25Java

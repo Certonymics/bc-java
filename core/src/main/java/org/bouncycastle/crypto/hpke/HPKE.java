@@ -25,6 +25,7 @@ public class HPKE
     public static final short kem_P521_SHA512 = 18;
     public static final short kem_X25519_SHA256 = 32;
     public static final short kem_X448_SHA512 = 33;
+    public static final short kem_XWing = 0x647a;
 
     // kdfs
     public static final short kdf_HKDF_SHA256 = 0x0001;
@@ -63,7 +64,14 @@ public class HPKE
         this.kdfId = kdfId;
         this.aeadId = aeadId;
         this.hkdf = new HKDF(kdfId);
-        this.kem = new DHKEM(kemId);
+        if (kemId == kem_XWing)
+        {
+            this.kem = new XWingKEM();
+        }
+        else
+        {
+            this.kem = new DHKEM(kemId);
+        }
         if (aeadId == aead_AES_GCM128)
         {
             Nk = 16;
